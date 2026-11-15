@@ -72,7 +72,19 @@ def upload(video,meta):
  body={'snippet':{'title':meta['title'][:100],'description':meta['description'],'tags':meta['tags'],'categoryId':'22','defaultLanguage':'hi'},'status':{'privacyStatus':'private'}}
  return yt.videos().insert(part='snippet,status',body=body,media_body=MediaFileUpload(str(video),mimetype='video/mp4',resumable=True)).execute()['id']
 def main(argv=None):
- p=argparse.ArgumentParser();p.add_argument('--output',default='output');p.add_argument('--date',default=datetime.now().astimezone().strftime('%Y-%m-%d'));p.add_argument('--upload',action='store_true');a=p.parse_args(argv)
+ p=argparse.ArgumentParser();p.add_argument('--output',default='output');p.add_argument('--date',default=datetime.now().astimezone().strftime('%Y-%m-%d'));p.add_argument('--upload',action='store_true');p.add_argument('--oauth-setup',action='store_true');a=p.parse_args(argv)
+ if a.oauth_setup:
+  from google_auth_oauthlib.flow import InstalledAppFlow
+  secret=Path('client_secret.json')
+  if not secret.exists():raise RuntimeError('Download OAuth Desktop client JSON and save it as client_secret.json in the repository root (never commit it).')
+  flow=InstalledAppFlow.from_client_secrets_file(str(secret),['https://www.googleapis.com/auth/youtube.upload'])
+  creds=flow.run_local_server(port=0,access_type='offline',prompt='consent')
+  if not creds.refresh_token:raise RuntimeError('Google did not return a refresh token. Revoke this app access in Google Account security and run OAuth setup again.')
+  print('Add these as GitHub Actions repository secrets:')
+  print('YOUTUBE_CLIENT_ID='+creds.client_id)
+  print('YOUTUBE_CLIENT_SECRET='+creds.client_secret)
+  print('YOUTUBE_REFRESH_TOKEN='+creds.refresh_token)
+  return 0
  h=hist_read();item=select(a.date,h);digest=hashlib.sha256(item['narration'].encode()).hexdigest()
  if any(x.get('date')==a.date and x.get('content_hash')==digest for x in h['videos']):raise RuntimeError('Duplicate content already processed today.')
  video,meta,check=build(item,a.output);vid=upload(video,meta) if a.upload else None
