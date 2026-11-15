@@ -69,7 +69,7 @@ def upload(video,meta):
  from googleapiclient.http import MediaFileUpload
  c=Credentials(None,refresh_token=os.environ['YOUTUBE_REFRESH_TOKEN'],token_uri='https://oauth2.googleapis.com/token',client_id=os.environ['YOUTUBE_CLIENT_ID'],client_secret=os.environ['YOUTUBE_CLIENT_SECRET'],scopes=['https://www.googleapis.com/auth/youtube.upload'])
  c.refresh(Request());yt=build('youtube','v3',credentials=c,cache_discovery=False)
- body={'snippet':{'title':meta['title'][:100],'description':meta['description'],'tags':meta['tags'],'categoryId':'22','defaultLanguage':'hi'},'status':{'privacyStatus':'private','selfDeclaredMadeForKids':False}}
+ body={'snippet':{'title':meta['title'][:100],'description':meta['description'],'tags':meta['tags'],'categoryId':'22','defaultLanguage':'hi'},'status':{'privacyStatus':'private'}}
  return yt.videos().insert(part='snippet,status',body=body,media_body=MediaFileUpload(str(video),mimetype='video/mp4',resumable=True)).execute()['id']
 def main(argv=None):
  p=argparse.ArgumentParser();p.add_argument('--output',default='output');p.add_argument('--date',default=datetime.now().astimezone().strftime('%Y-%m-%d'));p.add_argument('--upload',action='store_true');a=p.parse_args(argv)
