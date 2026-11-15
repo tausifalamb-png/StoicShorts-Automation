@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+.venv/
+.env
+.env.*
+token.json
+client_secrets.json
+*.mp4
+*.wav
+*.srt
+*.jpg
+output/
+.pytest_cache/
