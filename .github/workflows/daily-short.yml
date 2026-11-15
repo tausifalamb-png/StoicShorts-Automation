@@ -1,5 +1,7 @@
 name: Build and upload private Short
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
   schedule:
     # 13:30 UTC = 19:00 Asia/Kolkata
