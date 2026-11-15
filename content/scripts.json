@@ -1,0 +1,74 @@
+[
+  {
+    "id": "response-control",
+    "title": "Control Your Response",
+    "hook": "Tum har cheez control nahi kar sakte.",
+    "scenes": [
+      "Control the response",
+      "Pause before reacting",
+      "Choose your next action"
+    ],
+    "narration": "Tum duniya ke har event ko control nahi kar sakte. Kisi ka rude message, traffic, rejection, ya dusron ki opinion tumhare control mein nahi hai. Lekin tumhara next response tumhari responsibility hai. Stoic philosophy ka simple lesson hai: event aur reaction ke beech ek pause banao. Turant reply dena zaroori nahi. Pehle facts dekho, phir decide karo ki action lena hai ya ignore. Apni energy un cheezon par lagao jahan tumhara influence hai. Aaj ek situation choose karo jahan tum react karne ke bajay calmly respond karoge.",
+    "source": "Epictetus, Enchiridion 1 and 5; original paraphrase."
+  },
+  {
+    "id": "discipline-mood",
+    "title": "Discipline Over Mood",
+    "hook": "Mood ka wait karoge toh kaam delay hoga.",
+    "scenes": [
+      "Mood is temporary",
+      "Keep the promise",
+      "Start with five minutes"
+    ],
+    "narration": "Agar tum sirf tab kaam karte ho jab mood hota hai, toh tum apna schedule emotions ke hawale kar rahe ho. Stoic approach motivation ka wait nahi karti. Woh chhota sa right action choose karti hai, chahe mood perfect na ho. Padhai ho ya skill, target ko itna chhota karo ki shuru karna easy ho. Sirf five minutes do. Phir decide karo continue karna hai ya nahi. Discipline ka matlab khud ko punish karna nahi; apne commitments ko consistently respect karna hai.",
+    "source": "Epictetus, Discourses; original paraphrase."
+  },
+  {
+    "id": "guard-attention",
+    "title": "Guard Your Attention",
+    "hook": "Jahan attention jaati hai, din wahi ban jaata hai.",
+    "scenes": [
+      "Attention is limited",
+      "Choose one priority",
+      "Return to the task"
+    ],
+    "narration": "Tumhara attention unlimited resource nahi hai. Har notification, comparison, aur random scroll tumhare din ka ek hissa le leta hai. Stoic thinkers apne judgement aur choices par focus karte the. Aaj ek simple experiment karo: kaam shuru karne se pehle phone silent rakho, ek priority likho, aur twenty minutes sirf usi par kaam karo. Distraction aaye toh khud ko blame mat karo; bas attention wapas lao. Har baar wapas aana bhi practice hai. Apne din ko accidentally consume mat hone do.",
+    "source": "Marcus Aurelius, Meditations; original paraphrase."
+  },
+  {
+    "id": "expect-friction",
+    "title": "Expect Friction",
+    "hook": "Har plan smooth nahi chalega.",
+    "scenes": [
+      "Expect some friction",
+      "Adapt the plan",
+      "Continue with purpose"
+    ],
+    "narration": "Ek common mistake hai sochna ki agar plan sahi hai toh sab kuch smoothly hoga. Reality mein delay, mistakes, aur unexpected problems aayengi. Stoic practice ka matlab negativity expect karna nahi; mentally flexible rehna hai. Pehle se socho ki kya obstacle aa sakta hai, aur uska sensible response kya hoga. Jab problem aaye, drama se pehle next useful step identify karo. Plan change ho sakta hai, lekin tumhara purpose clear reh sakta hai. Resilience ka matlab kabhi problem na aana nahi, balki adapt karna hai.",
+    "source": "Seneca, Letters on Ethics; original paraphrase."
+  },
+  {
+    "id": "approval",
+    "title": "Stop Chasing Approval",
+    "hook": "Har kisi ki opinion tumhari direction decide nahi karegi.",
+    "scenes": [
+      "Approval is not control",
+      "Know your values",
+      "Choose with integrity"
+    ],
+    "narration": "Agar tum har decision isliye lete ho ki log kya kahenge, toh tum apni direction unke haath mein de rahe ho. Feedback useful ho sakta hai, lekin approval aur wisdom same cheez nahi hain. Pehle apne values clear karo. Phir criticism ko calmly evaluate karo: kya ismein koi fact hai, ya sirf kisi ki preference? Jo useful hai use lo, baaki chhod do. Respectful rehna zaroori hai, lekin har kisi ko impress karna tumhari duty nahi. Apne decisions ko character se measure karo, applause se nahi.",
+    "source": "Epictetus, Discourses; original paraphrase."
+  },
+  {
+    "id": "small-actions",
+    "title": "Small Actions Compound",
+    "hook": "Big change aksar boring daily actions se aata hai.",
+    "scenes": [
+      "Small actions matter",
+      "Make it repeatable",
+      "Stay patient"
+    ],
+    "narration": "Tum ek din mein apni life transform nahi karoge. Lekin daily repeat hone wale small actions tumhari direction badal sakte hain. Stoic philosophy result ke obsession se zyada apne effort aur character par focus karne ko kehti hai. Ek realistic habit choose karo: ten pages padhna, ek lesson complete karna, ya kal ka plan likhna. Itna simple rakho ki busy day mein bhi possible ho. Progress ko sirf outcome se judge mat karo. Dekho kya tum apne process ko honestly follow kar rahe ho.",
+    "source": "Marcus Aurelius, Meditations; original paraphrase."
+  }
+]\n
