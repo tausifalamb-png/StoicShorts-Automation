@@ -1,5 +1,6 @@
 import argparse, hashlib, json, os, shutil, subprocess
 from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 
@@ -72,7 +73,7 @@ def upload(video,meta):
  body={'snippet':{'title':meta['title'][:100],'description':meta['description'],'tags':meta['tags'],'categoryId':'22','defaultLanguage':'hi'},'status':{'privacyStatus':'private'}}
  return yt.videos().insert(part='snippet,status',body=body,media_body=MediaFileUpload(str(video),mimetype='video/mp4',resumable=True)).execute()['id']
 def main(argv=None):
- p=argparse.ArgumentParser();p.add_argument('--output',default='output');p.add_argument('--date',default=datetime.now().astimezone().strftime('%Y-%m-%d'));p.add_argument('--upload',action='store_true');p.add_argument('--oauth-setup',action='store_true');a=p.parse_args(argv)
+ p=argparse.ArgumentParser();p.add_argument('--output',default='output');p.add_argument('--date',default=datetime.now(ZoneInfo('Asia/Kolkata')).strftime('%Y-%m-%d'));p.add_argument('--upload',action='store_true');p.add_argument('--oauth-setup',action='store_true');a=p.parse_args(argv)
  if a.oauth_setup:
   from google_auth_oauthlib.flow import InstalledAppFlow
   secret=Path('client_secret.json')
