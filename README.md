@@ -3,19 +3,46 @@
 A private-first Hinglish YouTube Shorts generator using Python, eSpeak NG, Pillow, FFmpeg, and GitHub Actions.
 
 ## Automation
-No separate app is required: use the repository's **Actions** tab. The daily workflow runs at 13:30 UTC = 19:00 Asia/Kolkata. Enable Actions in the repository if prompted.
+No separate app is needed. Open **Actions** in this repository and enable workflows if GitHub prompts you. The daily workflow runs at **19:00 Asia/Kolkata** (13:30 UTC) and can also be started manually. GitHub scheduled workflows run from the default branch; public repositories with no activity for 60 days can have schedules disabled.
 
-## YouTube OAuth setup
-In Google Cloud Console, enable YouTube Data API v3, configure OAuth consent, create an OAuth Client ID, and authorize the channel owner with scope `https://www.googleapis.com/auth/youtube.upload`. Store the resulting credentials only as repository Actions secrets:
-- `YOUTUBE_CLIENT_ID`
-- `YOUTUBE_CLIENT_SECRET`
-- `YOUTUBE_REFRESH_TOKEN`
+## YouTube OAuth setup — do this once
+1. Open Google Cloud Console and create/select a project.
+2. In **APIs & Services → Library**, enable **YouTube Data API v3**.
+3. Open **Google Auth Platform → Branding** and provide an app name and support email.
+4. Under **Audience**, choose **External** for a personal Google account. During development, add the Google account that owns/manages the YouTube channel as a test user.
+5. Under **Data Access**, request only this scope: `https://www.googleapis.com/auth/youtube.upload`.
+6. Under **Clients**, create an OAuth client of type **Desktop app** and download its JSON file. Rename it to `client_secret.json` and place it in the repository folder on your own computer. The file is ignored by Git; never upload it or paste its contents into chat.
+7. On your computer, install Python 3.11+, FFmpeg and eSpeak NG. In the repository folder run:
+   ```bash
+   python -m pip install -r requirements.txt
+   python -m stoic_shorts --oauth-setup
+   ```
+   A browser window opens. Sign in with the Google account that owns the target channel and approve upload access. The terminal prints three values.
+8. In GitHub open **Settings → Secrets and variables → Actions → New repository secret**. Add:
+   - `YOUTUBE_CLIENT_ID`
+   - `YOUTUBE_CLIENT_SECRET`
+   - `YOUTUBE_REFRESH_TOKEN`
+   Paste each matching value from the local terminal. Do not share these values with anyone.
+9. Open **Actions → Build and upload private Short → Run workflow**. Review the run and confirm the resulting video is **Private** in YouTube Studio.
 
-Never commit or paste secrets into chat. Google OAuth consent/testing restrictions can affect authorization and refresh-token lifetime.
+**OAuth warning:** If the Google Auth Platform app remains in **Testing**, Google says authorizations for non-basic scopes expire after seven days, including refresh tokens. That means the automation will stop uploading until you authorize again. For longer-running personal use, review Google's production/personal-use and verification requirements; do not assume that simply switching to Production guarantees approval. A warning screen may appear for an unverified app. Google controls this, not this repository.
 
-## Run
-The workflow builds a 1080x1920 MP4, checks audio/video/duration, and uploads it as **PRIVATE only** if all three secrets exist. Without secrets it generates a review artifact and skips upload. Download the artifact from the Actions run.
+## What the workflow does
+- Selects one original Hinglish script from `content/scripts.json`.
+- Generates synthetic narration with eSpeak NG and original procedural scene cards with Pillow.
+- Renders an H.264/AAC MP4 at 1080×1920 and checks duration, video, and audio streams.
+- Uploads as **PRIVATE only** when all three YouTube secrets exist. Without them, it builds a review artifact and skips upload.
+- Saves run history to prevent same-day duplicate uploads.
+- Stores MP4, thumbnail, script, and metadata as a 14-day GitHub Actions artifact.
 
-Open-source tooling does not mean unlimited free compute: GitHub Actions usage limits apply. eSpeak NG voice quality is synthetic/robotic. Add original scripts in `content/scripts.json`. Tests: `python -m unittest discover -s tests -v`.
+## Zero-cost reality and limitations
+The project uses open-source software, but GitHub Actions has usage limits; it is not unlimited free compute. eSpeak NG voice is robotic, and the current scripts are Latin-script Hinglish, not natural Hindi speech. Six starter scripts are included; add more original scripts in `content/scripts.json` to expand the rotation. This initial implementation has not yet been validated by a successful GitHub Actions run or a real YouTube OAuth upload.
 
-The workflow never makes a video public. Review each upload manually in YouTube Studio before publishing. Repetitive templated content is not a monetization guarantee.
+The uploader hard-codes `privacyStatus=private`; there is no public/unlisted override. Review each video manually before publishing. Repetitive templated content is not a monetization guarantee.
+
+## Local commands
+```bash
+python -m pip install -r requirements.txt
+python -m unittest discover -s tests -v
+python -m stoic_shorts --output output
+```
