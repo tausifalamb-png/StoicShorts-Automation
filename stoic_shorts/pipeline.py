@@ -88,7 +88,7 @@ def main(argv=None):
   print('YOUTUBE_REFRESH_TOKEN='+creds.refresh_token)
   return 0
  h=hist_read()
- item=generate_script(a.date,h) if (os.environ.get('GEMINI_API_KEY') or os.environ.get('GROQ_API_KEY')) else select(a.date,h)
+ item=generate_script(a.date,h)
  digest=hashlib.sha256(item['narration'].encode()).hexdigest()
  if any(x.get('date')==a.date and x.get('content_hash')==digest for x in h['videos']):raise RuntimeError('Duplicate content already processed today.')
  video,meta,check=build(item,a.output);vid=upload(video,meta) if a.upload else None
