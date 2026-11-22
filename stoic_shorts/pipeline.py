@@ -3,6 +3,7 @@ from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
+from .llm import generate_script
 
 ROOT=Path(__file__).resolve().parents[1]; BANK=ROOT/'content/scripts.json'; HISTORY=ROOT/'data/history.json'
 def cmd(args):
@@ -86,10 +87,12 @@ def main(argv=None):
   print('YOUTUBE_CLIENT_SECRET='+creds.client_secret)
   print('YOUTUBE_REFRESH_TOKEN='+creds.refresh_token)
   return 0
- h=hist_read();item=select(a.date,h);digest=hashlib.sha256(item['narration'].encode()).hexdigest()
+ h=hist_read()
+ item=generate_script(a.date,h) if os.environ.get('GROQ_API_KEY') else select(a.date,h)
+ digest=hashlib.sha256(item['narration'].encode()).hexdigest()
  if any(x.get('date')==a.date and x.get('content_hash')==digest for x in h['videos']):raise RuntimeError('Duplicate content already processed today.')
  video,meta,check=build(item,a.output);vid=upload(video,meta) if a.upload else None
- h['videos'].append({'date':a.date,'script_id':item['id'],'content_hash':digest,'youtube_video_id':vid,'privacy_status':'private' if vid else 'not_uploaded','validation':check,'created_at_utc':datetime.now(timezone.utc).isoformat()})
+ h['videos'].append({'date':a.date,'script_id':item['id'],'title':item['title'],'content_hash':digest,'youtube_video_id':vid,'privacy_status':'private' if vid else 'not_uploaded','validation':check,'created_at_utc':datetime.now(timezone.utc).isoformat()})
  HISTORY.parent.mkdir(parents=True,exist_ok=True);HISTORY.write_text(json.dumps(h,ensure_ascii=False,indent=2)+'\n')
  print(json.dumps({'script_id':item['id'],'youtube_video_id':vid,'validation':check}));return 0
 if __name__=='__main__':raise SystemExit(main())
